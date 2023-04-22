@@ -42,7 +42,7 @@ describe("getProduct API", () => {
 		fetchMock.mockResponseOnce(
 			JSON.stringify({ data: { Product: null }, errors: [] })
 		);
-		const badResponse = await getProduct(999);
-		expect(badResponse).toEqual("Something went wrong: Product not found");
+		const noFoundResponse = await getProduct(999);
+		expect(noFoundResponse).toEqual("Something went wrong: Product not found");
 	});
 });
