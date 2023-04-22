@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import { Product, getProduct } from "../../../api/products";
 import Image from "next/image";
 import ProductImage from "../../../components/product/image";
+import ProductDescription from "../../../components/product/description";
 
 export const getServerSideProps: GetServerSideProps<{
 	product: Product;
@@ -26,10 +27,13 @@ export default function ProductDetail({ product, error }: ProductProps) {
 	return (
 		<div className="h-screen flex flex-col p-4">
 			<ProductImage img_url={product.img_url} name={product.name} />
-			<h1 className="text-3xl leading-relaxed mt-4">{product.name}</h1>
+			<h1 className="text-3xl leading-relaxed mt-4 font-medium">
+				{product.name}
+			</h1>
 			<h5 className="mt-4 text-purplehaze">
 				{product.power} // Packet of {product.quantity}
 			</h5>
+			<ProductDescription description={product.description} />
 		</div>
 	);
 }
