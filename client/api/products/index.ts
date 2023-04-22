@@ -1,6 +1,4 @@
-export async function getProduct(
-	productId: number
-): Promise<Product | undefined> {
+export async function getProduct(productId: number): Promise<ProductResponse> {
 	const query = `
 		query {
 			Product(id: ${productId}) {
@@ -18,10 +16,22 @@ export async function getProduct(
 			if (res.data.Product === null) {
 				throw new Error("Product not found");
 			}
-			return res.data.Product;
+			return {
+				product: res.data.Product,
+			};
 		})
-		.catch((err) => `Something went wrong: ${err.message}`);
+		.catch((err) => {
+			return {
+				product: null,
+				error: `Something went wrong: ${err.message}`,
+			};
+		});
 }
+
+export type ProductResponse = {
+	product: Product | null;
+	error?: string;
+};
 
 export type Product = {
 	id: number;

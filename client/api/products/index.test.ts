@@ -29,13 +29,16 @@ describe("getProduct API", () => {
 			})
 		);
 		const product = await getProduct(1);
-		expect(product).toEqual(fakeproduct);
+		expect(product).toEqual({ product: fakeproduct, error: undefined });
 	});
 
 	test("should throw error message if request fails", async () => {
 		fetchMock.mockRejectOnce(new Error("fake error message"));
 		const badResponse = await getProduct(1);
-		expect(badResponse).toEqual("Something went wrong: fake error message");
+		expect(badResponse).toEqual({
+			product: null,
+			error: "Something went wrong: fake error message",
+		});
 	});
 
 	test("should throw NOT FOUND error message if Product is not found", async () => {
@@ -43,6 +46,9 @@ describe("getProduct API", () => {
 			JSON.stringify({ data: { Product: null }, errors: [] })
 		);
 		const noFoundResponse = await getProduct(999);
-		expect(noFoundResponse).toEqual("Something went wrong: Product not found");
+		expect(noFoundResponse).toEqual({
+			product: null,
+			error: "Something went wrong: Product not found",
+		});
 	});
 });

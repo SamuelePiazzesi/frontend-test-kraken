@@ -30,7 +30,7 @@ test("should render page without breaking", async () => {
 
 test("should not render product details is product is null", async () => {
 	const { queryByText } = render(
-		<ProductDetail product={null} statusCode={404} />
+		<ProductDetail product={null} error="some error" />
 	);
 
 	const productTilte = queryByText("Energy saving light bulb");
