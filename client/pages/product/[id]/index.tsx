@@ -3,6 +3,7 @@ import { Product, getProduct } from "../../../api/products";
 import Image from "next/image";
 import ProductImage from "../../../components/product/image";
 import ProductDescription from "../../../components/product/description";
+import ProductSpecs from "../../../components/product/specs";
 
 export const getServerSideProps: GetServerSideProps<{
 	product: Product;
@@ -25,7 +26,7 @@ export default function ProductDetail({ product, error }: ProductProps) {
 		return <h1>{error}</h1>;
 	}
 	return (
-		<div className="h-screen flex flex-col p-4">
+		<div className="flex flex-col p-4">
 			<ProductImage img_url={product.img_url} name={product.name} />
 			<h1 className="text-3xl leading-relaxed mt-4 font-medium">
 				{product.name}
@@ -34,6 +35,7 @@ export default function ProductDetail({ product, error }: ProductProps) {
 				{product.power} // Packet of {product.quantity}
 			</h5>
 			<ProductDescription description={product.description} />
+			<ProductSpecs {...product} />
 		</div>
 	);
 }
