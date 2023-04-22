@@ -10,7 +10,7 @@ const fakeProduct: Product = {
 	img_url: "https://octopus.energy/static/images/products/light-bulb.png",
 	description: "A 9W energy saving light bulb",
 	quantity: 1,
-	power: "1",
+	power: "1W",
 	brand: "test",
 	weight: 1,
 	height: 1,
@@ -33,9 +33,17 @@ test("should not render product details is product is null", async () => {
 		<ProductDetail product={null} error="some error" />
 	);
 
-	const productTilte = queryByText("Energy saving light bulb");
+	const productTitle = queryByText("Energy saving light bulb");
 
-	expect(productTilte).not.toBeInTheDocument();
+	expect(productTitle).not.toBeInTheDocument();
+});
+
+test("should show product power and quantity", async () => {
+	const { getByText } = render(<ProductDetail product={fakeProduct} />);
+
+	const productPowerAndQuantity = getByText("1W // Packet of 1");
+
+	expect(productPowerAndQuantity).toBeInTheDocument();
 });
 
 test("should be able to increase and decrease product quantity", async () => {

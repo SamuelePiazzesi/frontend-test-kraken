@@ -19,13 +19,17 @@ export const getServerSideProps: GetServerSideProps<{
 };
 
 export default function ProductDetail({ product, error }: ProductProps) {
+	console.log(product);
 	if (error) {
 		return <h1>{error}</h1>;
 	}
 	return (
-		<div className="h-screen flex flex-col items-center p-4">
+		<div className="h-screen flex flex-col p-4">
 			<ProductImage img_url={product.img_url} name={product.name} />
-			<h1>{product.name}</h1>
+			<h1 className="text-3xl leading-relaxed mt-4">{product.name}</h1>
+			<h5 className="mt-4 text-purplehaze">
+				{product.power} // Packet of {product.quantity}
+			</h5>
 		</div>
 	);
 }

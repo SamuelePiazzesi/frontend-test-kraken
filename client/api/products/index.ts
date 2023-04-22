@@ -6,7 +6,16 @@ export async function getProduct(productId: number): Promise<ProductResponse> {
 				name,
 				price,
 				description,
-				img_url
+				img_url,
+				power,
+				quantity,
+				brand,
+				weight,
+				height,
+				width,
+				length,
+				model_code,
+				colour,
 			}
 		}
 	`;
