@@ -1,5 +1,7 @@
 import { GetServerSideProps } from "next";
 import { Product, getProduct } from "../../../api/products";
+import Image from "next/image";
+import ProductImage from "../../../components/product/image";
 
 export const getServerSideProps: GetServerSideProps<{
 	product: Product;
@@ -11,7 +13,7 @@ export const getServerSideProps: GetServerSideProps<{
 	return {
 		props: {
 			product: response.product,
-			error: response.error,
+			error: response.error || null,
 		},
 	};
 };
@@ -21,8 +23,9 @@ export default function ProductDetail({ product, error }: ProductProps) {
 		return <h1>{error}</h1>;
 	}
 	return (
-		<div className="h-screen flex flex-col justify-center items-center">
-			{product.name}
+		<div className="h-screen flex flex-col items-center p-4">
+			<ProductImage img_url={product.img_url} name={product.name} />
+			<h1>{product.name}</h1>
 		</div>
 	);
 }
