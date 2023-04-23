@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
 	return (
 		<main>
-			<div className="flex flex-col justify-center items-center h-screen">
+			<div className="flex flex-col justify-center items-center h-screen p-4">
 				<figure>
 					<img
 						src="https://static.octopuscdn.com/logos/logo.svg"
