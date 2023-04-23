@@ -1,6 +1,6 @@
 const Footer = () => {
 	return (
-		<footer className="footer mt-4 -mx-4 bg-indigo-950">
+		<footer className="footer mt-4 bg-indigo-950">
 			<div className="content p-4 text-purplehaze text-xs">
 				<p>Octopus Energy Ltd is a company registered in England and Wales.</p>
 				<p>

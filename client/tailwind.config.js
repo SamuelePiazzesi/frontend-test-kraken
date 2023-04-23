@@ -12,7 +12,7 @@ module.exports = {
 				plum: "var(--plum)",
 				purplehaze: "var(--purpleHaze)",
 				siphon: "var(--siphon)",
-				soholights: "var(--sohoLights",
+				soholights: "var(--sohoLights)",
 			},
 		},
 	},
