@@ -7,6 +7,8 @@ import Footer from "../../../components/footer";
 import Header from "../../../components/header";
 import ProductQtySelector from "../../../components/product/quantity-selector";
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export const getServerSideProps: GetServerSideProps<{
 	product: Product;
@@ -26,7 +28,17 @@ export const getServerSideProps: GetServerSideProps<{
 export default function ProductDetail({ product, error }: ProductProps) {
 	const [cartItems, setCartItems] = useState<Product[]>([]);
 	if (error) {
-		return <h1>{error}</h1>;
+		return (
+			<div className="flex flex-col h-screen justify-center items-center p-4">
+				<Image alt="error" src="/constantine.png" width={200} height={200} />
+				<h1 className="flex text-lg text-center ">{error}</h1>
+				<Link href="/product/1">
+					<h5 className="bg-soholights p-4 mt-4 text-siphon rounded-lg">
+						Go to the available product
+					</h5>
+				</Link>
+			</div>
+		);
 	}
 	return (
 		<div className="flex flex-col max-w-screen-md m-auto">
