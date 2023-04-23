@@ -13,7 +13,7 @@ export default function Home() {
 				<h1>Welcome to the Octopus Energy Frontend code test!</h1>
 
 				<Link href="/product/1">
-					<p className="p-4 cursor-pointer bg-soholights mt-4 rounded-lg">
+					<p className="p-4 cursor-pointer bg-soholights mt-4 rounded-lg text-siphon">
 						Get started by visiting the product page
 					</p>
 				</Link>
