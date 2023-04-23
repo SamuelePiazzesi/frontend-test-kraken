@@ -3,8 +3,8 @@ import ProductPrice from ".";
 
 describe("ProductPrice", () => {
 	it("should render correctly", () => {
-		const { getByText } = render(<ProductPrice price={10} />);
-		const price = getByText("10");
+		const { getByText } = render(<ProductPrice price={1000} />);
+		const price = getByText("£10.00");
 		expect(price).toBeInTheDocument();
 	});
 

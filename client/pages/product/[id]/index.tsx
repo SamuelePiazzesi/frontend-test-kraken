@@ -1,13 +1,12 @@
 import { GetServerSideProps } from "next";
 import { Product, getProduct } from "../../../api/products";
-import Image from "next/image";
 import ProductImage from "../../../components/product/image";
 import ProductDescription from "../../../components/product/description";
 import ProductSpecs from "../../../components/product/specs";
 import Footer from "../../../components/footer";
 import Header from "../../../components/header";
 import ProductQtySelector from "../../../components/product/quantity-selector";
-import ProductPrice from "../../../components/product/price";
+import { useState } from "react";
 
 export const getServerSideProps: GetServerSideProps<{
 	product: Product;
@@ -25,12 +24,13 @@ export const getServerSideProps: GetServerSideProps<{
 };
 
 export default function ProductDetail({ product, error }: ProductProps) {
+	const [cartItems, setCartItems] = useState<Product[]>([]);
 	if (error) {
 		return <h1>{error}</h1>;
 	}
 	return (
 		<div className="flex flex-col">
-			<Header basketItems={20} />
+			<Header basketItems={cartItems.length} />
 			<main className="p-4">
 				<ProductImage img_url={product.img_url} name={product.name} />
 				<h1 className="text-3xl leading-relaxed mt-4 font-medium">
@@ -39,10 +39,13 @@ export default function ProductDetail({ product, error }: ProductProps) {
 				<h5 className="mt-4 text-purplehaze">
 					{product.power} // Packet of {product.quantity}
 				</h5>
-				<div className="flex justify-between mt-4 items-center">
-					<ProductPrice price={product.price} />
-					<ProductQtySelector onChange={() => {}} />
-				</div>
+				<ProductQtySelector
+					key={cartItems.length}
+					product={product}
+					onSelect={(products) =>
+						setCartItems((prev) => [...prev, ...products])
+					}
+				/>
 				<ProductDescription description={product.description} />
 				<ProductSpecs {...product} />
 			</main>
