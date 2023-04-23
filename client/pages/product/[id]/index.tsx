@@ -6,6 +6,7 @@ import ProductDescription from "../../../components/product/description";
 import ProductSpecs from "../../../components/product/specs";
 import Footer from "../../../components/footer";
 import Header from "../../../components/header";
+import ProductQtySelector from "../../../components/product/quantity-selector";
 
 export const getServerSideProps: GetServerSideProps<{
 	product: Product;
@@ -37,6 +38,10 @@ export default function ProductDetail({ product, error }: ProductProps) {
 				<h5 className="mt-4 text-purplehaze">
 					{product.power} // Packet of {product.quantity}
 				</h5>
+				<div className="flex justify-between mt-4 items-center">
+					<h3 className="text-2xl mt-4 font-medium">{product.price}</h3>
+					<ProductQtySelector onChange={() => {}} />
+				</div>
 				<ProductDescription description={product.description} />
 				<ProductSpecs {...product} />
 			</main>
