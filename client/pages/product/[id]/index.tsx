@@ -29,23 +29,29 @@ export default function ProductDetail({ product, error }: ProductProps) {
 		return <h1>{error}</h1>;
 	}
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col max-w-screen-md m-auto">
 			<Header basketItems={cartItems.length} />
 			<main className="p-4">
-				<ProductImage img_url={product.img_url} name={product.name} />
-				<h1 className="text-3xl leading-relaxed mt-4 font-medium">
-					{product.name}
-				</h1>
-				<h5 className="mt-4 text-purplehaze">
-					{product.power} // Packet of {product.quantity}
-				</h5>
-				<ProductQtySelector
-					product={product}
-					onSelect={(products) =>
-						setCartItems((prev) => [...prev, ...products])
-					}
-				/>
+				<div className="flex flex-col md:flex-row gap-4">
+					<ProductImage img_url={product.img_url} name={product.name} />
+					<div className="flex-1">
+						<h1 className="text-3xl leading-relaxed font-medium">
+							{product.name}
+						</h1>
+						<h5 className="mt-4 text-purplehaze">
+							{product.power} // Packet of {product.quantity}
+						</h5>
+						<ProductQtySelector
+							product={product}
+							onSelect={(products) =>
+								setCartItems((prev) => [...prev, ...products])
+							}
+						/>
+					</div>
+				</div>
+
 				<ProductDescription description={product.description} />
+
 				<ProductSpecs {...product} />
 			</main>
 			<Footer />

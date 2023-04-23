@@ -4,7 +4,7 @@ import { Product } from "../../../api/products";
 type ProductImageProps = Pick<Product, "name" | "img_url">;
 const ProductImage = ({ name, img_url }: ProductImageProps) => {
 	return (
-		<div className="h-80 rounded-2xl relative w-full md:w-96">
+		<div className="h-80 rounded-2xl relative w-full md:w-96 self-center">
 			<Image
 				alt={`Image of ${name}`}
 				src={img_url}
