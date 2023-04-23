@@ -1,7 +1,8 @@
 import { render, fireEvent } from "@testing-library/react";
 
 import { Product } from "../api/products";
-import ProductDetail from "../pages/product/[id]";
+import ProductDetail, { getServerSideProps } from "../pages/product/[id]";
+import { GetServerSidePropsContext } from "next";
 
 const fakeProduct: Product = {
 	id: 1,
@@ -20,7 +21,7 @@ const fakeProduct: Product = {
 	colour: "test",
 };
 
-test("should render page without breaking", async () => {
+it("should render page without breaking", async () => {
 	const { getByText } = render(<ProductDetail product={fakeProduct} />);
 
 	const productTilte = getByText("Energy saving light bulb");
@@ -28,7 +29,7 @@ test("should render page without breaking", async () => {
 	expect(productTilte).toBeInTheDocument();
 });
 
-test("should not render product details is product is null", async () => {
+it("should not render product details is product is null", async () => {
 	const { queryByText } = render(
 		<ProductDetail product={null} error="some error" />
 	);
@@ -38,7 +39,7 @@ test("should not render product details is product is null", async () => {
 	expect(productTitle).not.toBeInTheDocument();
 });
 
-test("should show product power and quantity", async () => {
+it("should show product power and quantity", async () => {
 	const { getByText } = render(<ProductDetail product={fakeProduct} />);
 
 	const productPowerAndQuantity = getByText("1W // Packet of 1");
@@ -46,7 +47,7 @@ test("should show product power and quantity", async () => {
 	expect(productPowerAndQuantity).toBeInTheDocument();
 });
 
-test("should be able to increase and decrease product quantity", async () => {
+it("should be able to increase and decrease product quantity", async () => {
 	const { getByText, getByTitle } = render(
 		<ProductDetail product={fakeProduct} />
 	);
@@ -65,7 +66,7 @@ test("should be able to increase and decrease product quantity", async () => {
 	expect(currentQuantity).toHaveTextContent("1");
 });
 
-test("should be able to add items to the basket", async () => {
+it("should be able to add items to the basket", async () => {
 	const { getByText, getByTitle } = render(
 		<ProductDetail product={fakeProduct} />
 	);
@@ -85,4 +86,44 @@ test("should be able to add items to the basket", async () => {
 
 	const basketItems = getByTitle("Basket items");
 	expect(basketItems).toHaveTextContent("4");
+});
+
+describe("getServerSideProps", () => {
+	it("should return product props if API response is good", async () => {
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				data: {
+					Product: fakeProduct,
+				},
+				errors: [],
+			})
+		);
+		const context: GetServerSidePropsContext = {
+			query: { id: "1" },
+			req: null,
+			res: null,
+			resolvedUrl: "",
+		};
+		const value = await getServerSideProps(context);
+		expect(value).toEqual({
+			props: { product: fakeProduct, error: null },
+		});
+	});
+
+	it("should return error props if API response is bad", async () => {
+		fetchMock.mockRejectOnce(new Error("fake error message"));
+		const context: GetServerSidePropsContext = {
+			query: { id: "1" },
+			req: null,
+			res: null,
+			resolvedUrl: "",
+		};
+		const value = await getServerSideProps(context);
+		expect(value).toEqual({
+			props: {
+				error: "Something went wrong: fake error message",
+				product: null,
+			},
+		});
+	});
 });

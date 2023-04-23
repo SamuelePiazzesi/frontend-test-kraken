@@ -91,7 +91,7 @@ describe("QuantitySelector", () => {
 		expect(fakeOnSelect).toHaveBeenCalledWith([fakeProduct, fakeProduct]);
 	});
 
-	test("should be reset the quantity to 1 after adding to the basket", async () => {
+	it("should be reset the quantity to 1 after adding to the basket", async () => {
 		const fakeOnSelect = jest.fn();
 		const { getByText, getByTitle } = render(
 			<ProductQtySelector onSelect={fakeOnSelect} product={fakeProduct} />

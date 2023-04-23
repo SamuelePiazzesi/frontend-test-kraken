@@ -2,7 +2,7 @@ import { Product, getProduct } from ".";
 import fetchMock from "jest-fetch-mock";
 
 describe("getProduct API", () => {
-	test("should return the right Product", async () => {
+	it("should return the right Product", async () => {
 		const fakeproduct: Product = {
 			id: 1,
 			name: "test",
@@ -32,7 +32,7 @@ describe("getProduct API", () => {
 		expect(product).toEqual({ product: fakeproduct, error: undefined });
 	});
 
-	test("should throw error message if request fails", async () => {
+	it("should throw error message if request fails", async () => {
 		fetchMock.mockRejectOnce(new Error("fake error message"));
 		const badResponse = await getProduct(1);
 		expect(badResponse).toEqual({
@@ -41,7 +41,7 @@ describe("getProduct API", () => {
 		});
 	});
 
-	test("should throw NOT FOUND error message if Product is not found", async () => {
+	it("should throw NOT FOUND error message if Product is not found", async () => {
 		fetchMock.mockResponseOnce(
 			JSON.stringify({ data: { Product: null }, errors: [] })
 		);
