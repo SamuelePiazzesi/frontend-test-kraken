@@ -8,6 +8,8 @@ const ProductImage = ({ name, img_url }: ProductImageProps) => {
 			<Image
 				alt={`Image of ${name}`}
 				src={img_url}
+				placeholder="blur"
+				blurDataURL={img_url}
 				layout="fill"
 				className="object-fill rounded-2xl"
 			/>
