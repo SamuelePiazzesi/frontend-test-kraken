@@ -40,7 +40,6 @@ export default function ProductDetail({ product, error }: ProductProps) {
 					{product.power} // Packet of {product.quantity}
 				</h5>
 				<ProductQtySelector
-					key={cartItems.length}
 					product={product}
 					onSelect={(products) =>
 						setCartItems((prev) => [...prev, ...products])

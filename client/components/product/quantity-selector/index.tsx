@@ -51,6 +51,7 @@ const ProductQtySelector = ({ product, onSelect }: ProductQtySelectorProps) => {
 				className="bg-soholights text-pl text-siphon  p-4 rounded-xl w-full"
 				onClick={() => {
 					onSelect(Array(quantity).fill(product));
+					setQuantity(1);
 				}}
 			>
 				Add to cart

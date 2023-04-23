@@ -90,4 +90,25 @@ describe("QuantitySelector", () => {
 		fireEvent.click(addToCartButton);
 		expect(fakeOnSelect).toHaveBeenCalledWith([fakeProduct, fakeProduct]);
 	});
+
+	test("should be reset the quantity to 1 after adding to the basket", async () => {
+		const fakeOnSelect = jest.fn();
+		const { getByText, getByTitle } = render(
+			<ProductQtySelector onSelect={fakeOnSelect} product={fakeProduct} />
+		);
+
+		const increaseQuantity = getByText("+");
+
+		const currentQuantity = getByTitle("Current quantity");
+
+		fireEvent.click(increaseQuantity);
+
+		expect(currentQuantity).toHaveTextContent("2");
+
+		const addToBasketElement = getByText("Add to cart");
+
+		fireEvent.click(addToBasketElement);
+
+		expect(currentQuantity).toHaveTextContent("1");
+	});
 });
