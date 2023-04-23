@@ -18,7 +18,7 @@ const ProductSpecs = ({
 		<section className="mt-4">
 			<h2 className="text-2xl font-medium">Specifications</h2>
 			<table className="mt-4 w-full" cellSpacing={4}>
-				<tbody className="table-fixed text-purplehaze">
+				<tbody className="table-fixed">
 					<tr>
 						<td className="py-2">Brand</td>
 						<td>{brand}</td>
